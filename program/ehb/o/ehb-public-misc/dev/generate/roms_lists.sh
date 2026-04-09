@@ -13,7 +13,7 @@ function erd_nds_generate_list {
   "${PROGRAMEIRO_RUNNER}" "${PROGRAM}" --format asciidoc --output "$TARGET_PATH"
 }
 
-erd_nds_generate_list '/ehbrs/erd/nds/roms-list/gb'
-erd_nds_generate_list '/ehbrs/erd/nds/roms-list/gba'
-erd_nds_generate_list '/ehbrs/erd/nds/roms-list/gbc'
-erd_nds_generate_list '/ehbrs/erd/nds/roms-list/nds'
+erd_nds_generate_list '/ehb/o/erd/nds/roms-list/gb'
+erd_nds_generate_list '/ehb/o/erd/nds/roms-list/gba'
+erd_nds_generate_list '/ehb/o/erd/nds/roms-list/gbc'
+erd_nds_generate_list '/ehb/o/erd/nds/roms-list/nds'
