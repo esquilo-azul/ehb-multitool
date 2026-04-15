@@ -10,19 +10,54 @@ class FsBaseObject
   common_constructor :runner, :path do
     self.path = path.to_pathname
   end
-end
 
-class RomFile < FsBaseObject
   compare_by :label
-
-  # @return [String]
-  def extension
-    path.extname.to_s.gsub(/\A\./, '')
-  end
 
   # @return [String]
   def label
     path.basename_noext.to_s
+  end
+end
+
+class RomDirectory < FsBaseObject
+  memoize def files
+    children(::RomFile, :file?)
+  end
+
+  # @return [Enumerable<FsBaseObject>]
+  memoize def subdirectories
+    children(::RomDirectory, :directory?)
+  end
+
+  # @return [Boolean]
+  memoize def selected?
+    files.any? || subdirectories.any?
+  end
+
+  # @return [Hash]
+  def value
+    files.map(&:label).then do |files_value|
+      if subdirectories.any?
+        (files_value.any? ? { '' => files_value } : {})
+          .merge(subdirectories.map { |e| [e.label, e.value] }.to_h)
+      else
+        files_value
+      end
+    end
+  end
+
+  protected
+
+  def children(child_class, type_method)
+    path.children(true).select(&type_method).map { |e| child_class.new(runner, e) }
+      .select(&:selected?).sort
+  end
+end
+
+class RomFile < FsBaseObject
+  # @return [String]
+  def extension
+    path.extname.to_s.gsub(/\A\./, '')
   end
 
   # @return [Boolean]
@@ -31,6 +66,10 @@ class RomFile < FsBaseObject
     return false if excluded_file?
 
     raise "Extension unmapped: \"#{extension}\" (Path: \"#{path}\")"
+  end
+
+  def value
+    label
   end
 
   protected
@@ -46,7 +85,7 @@ class RomFile < FsBaseObject
   end
 end
 
-class RomsSection < FsBaseObject
+class RomsSection < RomDirectory
   LABEL_TRANSLATIONS = {
     closed: 'Finalizado',
     liked: 'Gostado',
@@ -66,26 +105,17 @@ class RomsSection < FsBaseObject
     LABEL_TRANSLATIONS.fetch(parsed_root_basename.identifier)
   end
 
-  # @return [Hash]
-  def to_h
-    rom_files.map(&:label)
-  end
-
   protected
 
   memoize def parsed_root_basename
     ROOT_BASENAME_PARSER.parse!(path.basename.to_s)
-  end
-
-  def rom_files
-    path.glob('**/*').select(&:file?).map { |e| ::RomFile.new(runner, e) }.select(&:selected?).sort
   end
 end
 
 class ListGenerator < FsBaseObject
   # @return [Hash]
   def to_h
-    sections.inject({}) { |a, e| a.merge(e.label => e.to_h) }
+    sections.inject({}) { |a, e| a.merge(e.label => e.value) }
   end
 
   protected
@@ -129,4 +159,9 @@ class TheRunner
   end
 end
 
-TheRunner.run
+begin
+  TheRunner.run
+rescue SystemStackError => e
+  'system_stack_error'.to_pathname.write(e.backtrace.map { |v| "#{v}\n" }.join)
+  raise e
+end
