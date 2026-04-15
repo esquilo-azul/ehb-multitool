@@ -2,9 +2,11 @@
 # frozen_string_literal: true
 
 require ENV.fetch('RUBY_TO_REQUIRE')
+require 'memoized'
 
 class FsBaseObject
-  enable_simple_cache
+  include ::Memoized
+
   common_constructor :runner, :path do
     self.path = path.to_pathname
   end
@@ -71,7 +73,7 @@ class RomsSection < FsBaseObject
 
   protected
 
-  def parsed_root_basename_uncached
+  memoize def parsed_root_basename
     ROOT_BASENAME_PARSER.parse!(path.basename.to_s)
   end
 
@@ -94,6 +96,8 @@ class ListGenerator < FsBaseObject
 end
 
 class TheRunner
+  include ::Memoized
+
   runner_with :help, :output_item do
     arg_opt '-e', '--excluded-extension', repeat: true
     arg_opt '-r', '--rom-extension', repeat: true
@@ -120,7 +124,7 @@ class TheRunner
     list.to_h
   end
 
-  def list_uncached
+  memoize def list
     ::ListGenerator.new(self, parsed.root_directory)
   end
 end
