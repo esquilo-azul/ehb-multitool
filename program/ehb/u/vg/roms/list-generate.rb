@@ -89,10 +89,13 @@ class RomsSection < RomDirectory
   LABEL_TRANSLATIONS = {
     closed: 'Finalizado',
     liked: 'Gostado',
-    unliked: 'Não gostado',
+    dismissed: 'Dispensado',
+    other: 'Outro',
     played: 'Jogado',
+    repeated: 'Repetido',
     selected: 'Selecionado',
     unplayed: 'Não jogado',
+    untranslated: 'Não traduzido',
     sequences: 'Sequência',
     broken: 'Não funciona'
   }.freeze
