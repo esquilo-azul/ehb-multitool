@@ -30,7 +30,7 @@ class RomFile < FsBaseObject
     return true if rom_file?
     return false if excluded_file?
 
-    raise "Extension unmapped: \"#{extension}\""
+    raise "Extension unmapped: \"#{extension}\" (Path: \"#{path}\")"
   end
 
   protected
