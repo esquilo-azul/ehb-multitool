@@ -39,7 +39,7 @@ class RomDirectory < FsBaseObject
     files.map(&:label).then do |files_value|
       if subdirectories.any?
         (files_value.any? ? { '' => files_value } : {})
-          .merge(subdirectories.map { |e| [e.label, e.value] }.to_h)
+          .merge(subdirectories.to_h { |e| [e.label, e.value] })
       else
         files_value
       end
