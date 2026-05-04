@@ -1,10 +1,14 @@
+git_commit_id() {
+  git rev-parse --short HEAD
+}
+
 git_current_revision() {
   git rev-parse --abbrev-ref HEAD
 }
 
 git_status() {
   local RESULT=''
-  local COMMANDS=(git_current_revision)
+  local COMMANDS=(git_current_revision git_commit_id)
   for COMMAND in "${COMMANDS[@]}"; do
     var_set_by COMMAND_VALUE "${COMMAND}" 2> /dev/null
     if [[ -n "${COMMAND_VALUE}" ]]; then
