@@ -8,7 +8,7 @@ git_current_revision() {
 
 git_status() {
   local RESULT=''
-  local COMMANDS=(git_current_revision git_commit_id)
+  local COMMANDS=(git_current_revision git_commit_id git_worktree_dirty)
   for COMMAND in "${COMMANDS[@]}"; do
     var_set_by COMMAND_VALUE "${COMMAND}" 2> /dev/null
     if [[ -n "${COMMAND_VALUE}" ]]; then
@@ -21,6 +21,12 @@ git_status() {
 
   if [[ -n "$RESULT" ]]; then
     outout " (${RESULT})"
+  fi
+}
+
+git_worktree_dirty() {
+  if [[ -n "$(git status --porcelain=v2)" ]]; then
+    outout '*'
   fi
 }
 
