@@ -1,7 +1,22 @@
 git_current_revision() {
-  REVISION="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-  if [ -n "$REVISION" ]; then
-    echo " (${REVISION})"
+  git rev-parse --abbrev-ref HEAD
+}
+
+git_status() {
+  local RESULT=''
+  local COMMANDS=(git_current_revision)
+  for COMMAND in "${COMMANDS[@]}"; do
+    var_set_by COMMAND_VALUE "${COMMAND}" 2> /dev/null
+    if [[ -n "${COMMAND_VALUE}" ]]; then
+      if [[ -n "$RESULT" ]]; then
+        RESULT="${RESULT}, "
+      fi
+      RESULT="${RESULT}${COMMAND_VALUE}"
+    fi
+  done
+
+  if [[ -n "$RESULT" ]]; then
+    outout " (${RESULT})"
   fi
 }
 
@@ -54,7 +69,7 @@ USER_HOST_PWD="${USER_HOST}: \w"
 TITLE_SET="${TITLE_START}\$(pwd_basename)${TITLE_END}"
 
 if [ "$color_prompt" = yes ]; then
-  GIT_REV="${GIT_REV_COLOR}\$(git_current_revision)${COLOUR_END}"
+  GIT_REV="${GIT_REV_COLOR}\$(git_status)${COLOUR_END}"
   USER_HOST2="${DEBIAN}${USER_HOST_COLOR}${USER_HOST}${COLOUR_END}"
   CURR_DIR="${CURR_DIR_COLOR}\w${COLOUR_END}"
   export PS1="${TITLE_SET}${USER_HOST2}:${CURR_DIR}${GIT_REV}\$ "
