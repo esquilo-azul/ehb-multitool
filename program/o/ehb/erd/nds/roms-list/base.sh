@@ -6,7 +6,7 @@ PLATFORM="$1"
 shift
 ROMS_DIRECTORY="${EHBRSDISK_NDS_TARGET_PATH}/${PLATFORM}"
 
-"${PROGRAMEIRO_RUNNER}" /ehb/u/vg/roms/list-generate "${ROMS_DIRECTORY}" \
+"${PROGRAMEIRO_RUNNER}" /u/vg/roms/list-generate "${ROMS_DIRECTORY}" \
   -e 'bin' \
   -e 'bmp' \
   -e 'pal' \
