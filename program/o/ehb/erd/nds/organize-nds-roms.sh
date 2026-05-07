@@ -2,4 +2,4 @@
 
 source "${BASH_TO_REQUIRE}"
 
-"$PROGRAMEIRO_RUNNER" /w/ehbrs vg nds organize-roms "${EHBRSDISK_NDS_INSTALL_PATH}/nds"
+"$PROGRAMEIRO_RUNNER" /s/ehbrs-tools vg nds organize-roms "${EHBRSDISK_NDS_INSTALL_PATH}/nds"
