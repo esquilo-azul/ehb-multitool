@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source "${BASH_TO_REQUIRE}"
+
+rm -rf "$EHBRSDISK_N64_INSTALL_PATH/.Trash"*
+"${PROGRAMEIRO_RUNNER}" f/sync/rsync "$@" "$EHBRSDISK_N64_INSTALL_PATH" "$EHBRSDISK_N64_TARGET_PATH"

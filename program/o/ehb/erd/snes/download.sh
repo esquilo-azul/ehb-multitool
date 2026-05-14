@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source "${BASH_TO_REQUIRE}"
+
+rm -rf "$EHBRSDISK_SNES_INSTALL_PATH/.Trash-1000"
+"${PROGRAMEIRO_RUNNER}" f/sync/rsync --fat "$@" "$EHBRSDISK_SNES_INSTALL_PATH" "$EHBRSDISK_SNES_TARGET_PATH"
