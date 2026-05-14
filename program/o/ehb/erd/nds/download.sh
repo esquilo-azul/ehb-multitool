@@ -3,5 +3,5 @@
 source "${BASH_TO_REQUIRE}"
 
 rm -rf "$EHBRSDISK_NDS_INSTALL_PATH/.Trash-1000"
-"$PROGRAMEIRO_RUNNER" f/rclone-sync --delete "$@" "$EHBRSDISK_NDS_INSTALL_PATH" \
+"$PROGRAMEIRO_RUNNER" f/sync/rclone --delete "$@" "$EHBRSDISK_NDS_INSTALL_PATH" \
   "$EHBRSDISK_NDS_TARGET_PATH"
