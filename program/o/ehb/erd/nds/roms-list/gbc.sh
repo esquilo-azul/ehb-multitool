@@ -2,4 +2,4 @@
 
 source "${BASH_TO_REQUIRE}"
 
-"${PROGRAMEIRO_RUNNER}" base 'gbc' "$@"
+"${PROGRAMEIRO_RUNNER}" base 'gbc' -r gb "$@"
