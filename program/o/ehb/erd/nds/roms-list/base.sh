@@ -17,6 +17,10 @@ fi
   -e 'rom' \
   -e 'sav' \
   -e 'ss0' \
+  -e 'ss1' \
+  -e 'ss2' \
+  -e 'ss3' \
+  -e 'ss4' \
   -e 'txt' \
   -e 'ys0' \
   -e 'yss' \
