@@ -1,0 +1,12 @@
+[Unit]
+Description=Mount %%DISK_ID%% in %%MOUNT_PATH%%
+After=local-fs.target
+
+[Mount]
+What=/dev/disk/by-uuid/%%DISK_ID%%
+Where=%%MOUNT_PATH%%
+Type=ext4
+Options=rw,noatime
+
+[Install]
+WantedBy=multi-user.target
