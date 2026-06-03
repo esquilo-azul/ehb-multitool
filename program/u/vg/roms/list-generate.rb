@@ -91,6 +91,7 @@ class RomsSection < RomDirectory
     liked: 'Gostado',
     dismissed: 'Dispensado',
     other: 'Outro',
+    pending: 'Pendente',
     played: 'Jogado',
     repeated: 'Repetido',
     selected: 'Selecionado',
