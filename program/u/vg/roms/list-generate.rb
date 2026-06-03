@@ -105,20 +105,24 @@ class RomsSection < RomDirectory
 
   # @return [String]
   def label
-    LABEL_TRANSLATIONS.fetch(parsed_root_basename.identifier)
+    parsed_root_basename.if_present do |v|
+      LABEL_TRANSLATIONS.fetch(v.identifier)
+    end
   end
 
   protected
 
   memoize def parsed_root_basename
-    ROOT_BASENAME_PARSER.parse!(path.basename.to_s)
+    ROOT_BASENAME_PARSER.parse(path.basename.to_s)
   end
 end
 
 class ListGenerator < FsBaseObject
   # @return [Hash]
   def to_h
-    sections.inject({}) { |a, e| a.merge(e.label => e.value) }
+    sections.inject({}) do |a, e|
+      e.label.present? ? a.merge(e.label => e.value) : a
+    end
   end
 
   protected
