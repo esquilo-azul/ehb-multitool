@@ -15,20 +15,12 @@ class Runner
 
   BACKUP = { source_parent: 'storage', target_parent: 'eduardo' }.freeze
 
-  VIDEOS = { source_parent: 'storage/videos', target_parent: 'videos' }.freeze
-
   RESOURCES = {
     backup: %i[backup_both backup_hd fotos],
     backup_both: BACKUP,
     backup_hd: BACKUP.merge(delete: false),
-    fotos: BACKUP.merge(source: 'storage/ehbrs/fotos', target: 'fotos'),
-    videos: %i[filmes filmes-alternativas assistidos series videos_ehb videos_rs],
-    filmes: VIDEOS,
-    'filmes-alternativas' => VIDEOS,
-    'assistidos' => VIDEOS.merge(delete: false),
-    series: VIDEOS,
-    videos_ehb: VIDEOS.merge(source_basename: 'eduardo', target_basename: 'eduardo'),
-    videos_rs: VIDEOS.merge(source_basename: 'roseane', target_basename: 'roseane'),
+    fotos: BACKUP.merge(source: 'storage/ehbrs-fotos', target: 'fotos'),
+    videos: { source: 'storage/videos', target: 'videos' },
     musicas: { source: 'storage/musicas', target: 'musicas' }
   }.with_indifferent_access.freeze
 
