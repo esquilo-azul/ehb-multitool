@@ -57,6 +57,14 @@ class FileRename
 
   private
 
+  # @param input [String]
+  # @return [String]
+  def delete(input)
+    options.fetch(:delete).if_present(input) do |v|
+      input.gsub(v, '')
+    end
+  end
+
   def line_out
     rename? ? "#{new_basename} <= #{basename}" : basename.light_black
   end
@@ -85,10 +93,9 @@ class FileRename
     ::File.basename(file)
   end
 
+  # @return [String]
   def new_basename
-    r = basename
-    r.gsub!(options.fetch(:delete), '') if options.fetch(:delete)
-    replace(r)
+    %i[delete replace].inject(basename) { |a, e| send(e, a) }
   end
 end
 
@@ -117,6 +124,15 @@ class Runner
     ::FileRename.new(path, rename_options)
   end
 
+  # @param pattern [String, nil]
+  # @return [String, Regex, nil]
+  def build_pattern(value)
+    return nil if value.blank?
+    return value unless parsed.regex?
+
+    ::Regexp.new(value)
+  end
+
   def recursive?
     parsed.recursive?
   end
@@ -126,11 +142,9 @@ class Runner
       replace_pattern: replace_pattern, replace_by: replace_by, mkdir_parent: parsed.mkdir_parent? }
   end
 
+  # @return [String, Regex, nil]
   def replace_pattern
-    return nil if parsed.replace.blank?
-    return parsed.replace unless parsed.regex?
-
-    ::Regexp.new(parsed.replace)
+    build_pattern(parsed.replace)
   end
 
   def replace_by
