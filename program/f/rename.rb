@@ -133,12 +133,17 @@ class Runner
     ::Regexp.new(value)
   end
 
+  # @return [String, Regex, nil]
+  def delete_pattern
+    build_pattern(parsed.delete)
+  end
+
   def recursive?
     parsed.recursive?
   end
 
   def rename_options
-    { delete: parsed.delete, confirm: parsed.confirm?,
+    { delete: delete_pattern, confirm: parsed.confirm?,
       replace_pattern: replace_pattern, replace_by: replace_by, mkdir_parent: parsed.mkdir_parent? }
   end
 
