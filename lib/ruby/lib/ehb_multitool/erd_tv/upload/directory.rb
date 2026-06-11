@@ -8,9 +8,10 @@ module EhbMultitool
         enable_speaker
         enable_listable
         BOOLEAN_OPTIONS = {
+          confirm: false,
           delete: true
         }.freeze
-        lists.add_symbol :option, :bbfln90, :confirm, :source, :source_basename,
+        lists.add_symbol :option, :bbfln90, :source, :source_basename,
                          :source_parent, :target, :target_basename, :target_mkdir, :target_parent,
                          :verbose, *BOOLEAN_OPTIONS.keys
 
@@ -60,9 +61,9 @@ module EhbMultitool
 
         def run_rsync
           if options.fetch(OPTION_VERBOSE)
-            sync.system!(options.fetch(OPTION_CONFIRM))
+            sync.system!(confirm?)
           else
-            sync.execute!(options.fetch(OPTION_CONFIRM)).banner
+            sync.execute!(confirm?).banner
           end
         end
 
