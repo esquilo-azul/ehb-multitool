@@ -7,9 +7,12 @@ module EhbMultitool
         enable_simple_cache
         enable_speaker
         enable_listable
-        lists.add_symbol :option, :bbfln90, :confirm, :delete, :source, :source_basename,
+        BOOLEAN_OPTIONS = {
+          delete: true
+        }.freeze
+        lists.add_symbol :option, :bbfln90, :confirm, :source, :source_basename,
                          :source_parent, :target, :target_basename, :target_mkdir, :target_parent,
-                         :verbose
+                         :verbose, *BOOLEAN_OPTIONS.keys
 
         common_constructor :id, :options do
           self.options = self.class.lists.option.hash_keys_validate!(options.symbolize_keys)
@@ -49,8 +52,10 @@ module EhbMultitool
           }
         end
 
-        def delete?
-          options.key?(OPTION_DELETE) ? options.fetch(OPTION_DELETE) : true
+        BOOLEAN_OPTIONS.each do |key, default_value|
+          define_method "#{key}?" do
+            options.if_key(key, default_value)
+          end
         end
 
         def run_rsync
