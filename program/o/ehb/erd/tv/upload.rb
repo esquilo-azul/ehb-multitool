@@ -51,8 +51,8 @@ class Runner
     resources_ids.each { |id| add_resource_to_run(id) }
     bbfln90_start_sshd
     @resources_to_run.each do |id|
-      ::Cliutils::EhbUbuntuBase0::ErdTv::Upload::Directory.new(id,
-                                                               backup_options(RESOURCES.fetch(id)))
+      ::EhbMultitool::ErdTv::Upload::Directory.new(id,
+                                                   backup_options(RESOURCES.fetch(id)))
     end
   end
 
