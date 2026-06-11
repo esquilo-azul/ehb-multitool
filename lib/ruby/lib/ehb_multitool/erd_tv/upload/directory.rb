@@ -9,11 +9,12 @@ module EhbMultitool
         enable_listable
         BOOLEAN_OPTIONS = {
           confirm: false,
-          delete: true
+          delete: true,
+          verbose: false
         }.freeze
         lists.add_symbol :option, :bbfln90, :source, :source_basename,
                          :source_parent, :target, :target_basename, :target_mkdir, :target_parent,
-                         :verbose, *BOOLEAN_OPTIONS.keys
+                         *BOOLEAN_OPTIONS.keys
 
         common_constructor :id, :options do
           self.options = self.class.lists.option.hash_keys_validate!(options.symbolize_keys)
@@ -60,7 +61,7 @@ module EhbMultitool
         end
 
         def run_rsync
-          if options.fetch(OPTION_VERBOSE)
+          if verbose?
             sync.system!(confirm?)
           else
             sync.execute!(confirm?).banner
