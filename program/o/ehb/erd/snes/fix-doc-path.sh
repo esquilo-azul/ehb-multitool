@@ -2,9 +2,19 @@
 
 source "${BASH_TO_REQUIRE}"
 
+ROM_EXTENSIONS=(bs sfc smc)
+DOC_DIR="${EHBRSDISK_SNES_INSTALL_PATH}/docs"
+
 function rom_file() {
   var_set_by BASENAME basename_without_extension "$1"
-  find "${EHBRSDISK_SNES_INSTALL_PATH}" -type f -name "$(printf '%q' "${BASENAME}.sfc")"
+  for EXTENSION in "${ROM_EXTENSIONS[@]}"; do
+    var_set_by FOUND find "${EHBRSDISK_SNES_INSTALL_PATH}" -type f -name \
+      "$(printf '%q' "${BASENAME}.")${EXTENSION}"
+    if [[ -n "${FOUND}" ]]; then
+      outout "${FOUND}"
+      return
+    fi
+  done
 }
 
 function doc_file_perform() {
@@ -23,8 +33,6 @@ function doc_file_perform() {
     fi
   fi
 }
-
-DOC_DIR="${EHBRSDISK_SNES_INSTALL_PATH}/docs"
 
 while read -r DOC_FILE; do
   doc_file_perform "$DOC_FILE"
