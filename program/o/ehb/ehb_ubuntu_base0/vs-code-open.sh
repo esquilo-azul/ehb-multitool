@@ -5,7 +5,7 @@ source "${BASH_TO_REQUIRE}"
 PROJECT_EXTENSION='.code-workspace'
 
 function files_list() {
-  find "${DROPBOX_ROOT}/devel/vscode-workspaces" -name "*${PROJECT_EXTENSION}" | sort
+  find "${DEVEL_VSCODE_WORKSPACES_ROOT}" -name "*${PROJECT_EXTENSION}" | sort
 }
 
 hash_init OPTIONS
