@@ -33,7 +33,7 @@ class Runner
   def bbfln90_start_sshd
     return unless parsed.bbfln90?
 
-    ::Cliutils::Core.command('e/ehbrs/bbfln/90/sshd/start').system!
+    ::Cliutils::Core.command(::ENV.fetch('BBFLN_90_SSHD_START_COMMAND')).system!
   end
 
   def run
