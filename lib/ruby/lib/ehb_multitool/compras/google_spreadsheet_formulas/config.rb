@@ -6,7 +6,8 @@ module EhbMultitool
       module Config
         OFFER_OPTIONS = %w[Escolhido Comprado Recebido Concluído].freeze
         OFFER_STATES = StateList.from_texts 'Recebido', 'Escolhido', 'Comprado', 'Concluído',
-                                            'Escolhido outro', 'Ativo', 'Inativo', 'Cancelado'
+                                            'Escolhido outro', 'Ativo', 'Inativo', 'Cancelado',
+                                            'Indefinido'
         OFFERS_INTERVAL = 'Ofertas!$A:$H'
         OFFERS_ITEM_COLUMN = 'A'
         OFFERS_OPTION_COLUMN = 'B'
@@ -23,8 +24,6 @@ module EhbMultitool
         ITEMS_OPTION_COLUMN = 'D'
         ITEMS_STATE_COLUMN = 'F'
         ITEMS_ROW = 2
-
-        FINAL_FALSE_VALUE = 'false'
       end
     end
   end

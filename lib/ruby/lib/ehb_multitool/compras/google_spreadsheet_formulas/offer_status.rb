@@ -9,7 +9,7 @@ module EhbMultitool
 
         # @return [String]
         def root
-          by_offer_option(by_escolhido_outro(FINAL_FALSE_VALUE))
+          by_offer_option(by_escolhido_outro(OFFER_STATES[:indefinido]))
         end
 
         protected

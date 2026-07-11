@@ -10,4 +10,4 @@ not(
 isna(
 match(
 index(
-query( Itens!$A:$G ; "select F where C = '" & A2 & "'" ; false ) ; 1 ; 1 ) ; {"09 - Concluído"; "07 - Comprado"; "01 - Recebido"; "02 - Escolhido"} ; 0 ) ) ) ; "05 - Escolhido outro" ; false ) ) ) ) ) ) ) )
+query( Itens!$A:$G ; "select F where C = '" & A2 & "'" ; false ) ; 1 ; 1 ) ; {"09 - Concluído"; "07 - Comprado"; "01 - Recebido"; "02 - Escolhido"} ; 0 ) ) ) ; "05 - Escolhido outro" ; "09 - Indefinido" ) ) ) ) ) ) ) )
