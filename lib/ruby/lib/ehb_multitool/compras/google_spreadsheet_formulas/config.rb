@@ -16,7 +16,7 @@ module EhbMultitool
         ITEM_OPTIONS = %w[Cancelado Pausado Pesquisar].freeze
         ITEM_STATES = StateList.from_texts 'Recebido', 'Escolhido', 'Orçado', 'Orçar',
                                            'Selecionado', 'Pesquisar', 'Comprado', 'Pausado',
-                                           'Concluído', 'Cancelado'
+                                           'Concluído', 'Cancelado', 'Indefinido'
         ITEMS_INTERVAL = 'Itens!$A:$G'
         ITEMS_DESCRIPTION_COLUMN = 'C'
 

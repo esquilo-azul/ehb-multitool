@@ -1,10 +1,10 @@
-=if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Concluído") > 0 ; "09 - Concluído" ; 
-if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Recebido") > 0 ; "01 - Recebido" ; 
-if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Comprado") > 0 ; "07 - Comprado" ; 
-if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Escolhido") > 0 ; "02 - Escolhido" ; 
-if( D2 = "Pesquisar" ; "06 - Pesquisar" ; 
-if( D2 = "Pausado" ; "08 - Pausado" ; 
-if( D2 = "Cancelado" ; "10 - Cancelado" ; 
-if( D2 = "Comprar logo" ; "05 - Selecionado" ; 
-if( D2 = "Comprar agora" ; 
-if( E2 >= 2 ; "03 - Orçado" ; "04 - Orçar" ) ; FALSE ) ) ) ) ) ) ) ) )
+=if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Concluído") > 0 ; "09 - Concluído" ;
+if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Recebido") > 0 ; "01 - Recebido" ;
+if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Comprado") > 0 ; "07 - Comprado" ;
+if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Escolhido") > 0 ; "02 - Escolhido" ;
+if( D2 = "Pesquisar" ; "06 - Pesquisar" ;
+if( D2 = "Pausado" ; "08 - Pausado" ;
+if( D2 = "Cancelado" ; "10 - Cancelado" ;
+if( D2 = "Comprar logo" ; "05 - Selecionado" ;
+if( D2 = "Comprar agora" ;
+if( E2 >= 2 ; "03 - Orçado" ; "04 - Orçar" ) ; "11 - Indefinido" ) ) ) ) ) ) ) ) )

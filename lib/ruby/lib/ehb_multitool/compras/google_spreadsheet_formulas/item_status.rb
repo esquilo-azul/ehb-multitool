@@ -11,7 +11,7 @@ module EhbMultitool
             item_status_by_option(
               item_option_node(
                 'Comprar logo',
-                item_option_node('Comprar agora', 'FALSE', comprar_agora_node),
+                item_option_node('Comprar agora', ITEM_STATES[:indefinido], comprar_agora_node),
                 ITEM_STATES[:selecionado]
               )
             )
