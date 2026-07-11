@@ -2,11 +2,12 @@
 if( B2 = "Escolhido" ; "02 - Escolhido" ;
 if( B2 = "Comprado" ; "03 - Comprado" ;
 if( B2 = "Concluído" ; "04 - Concluído" ;
-if( B2 = "Cancelado" ; "06 - Cancelado" ;
+if( B2 = "Ativo" ; "06 - Ativo" ;
 if( B2 = "Inativo" ; "07 - Inativo" ;
+if( B2 = "Cancelado" ; "08 - Cancelado" ;
 if(
 not(
 isna(
 match(
 index(
-query( Itens!$A:$G ; "select F where C = '" & A2 & "'" ; false ) ; 1 ; 1 ) ; {"09 - Concluído"; "07 - Comprado"; "01 - Recebido"; "02 - Escolhido"} ; 0 ) ) ) ; "05 - Escolhido outro" ; false ) ) ) ) ) ) )
+query( Itens!$A:$G ; "select F where C = '" & A2 & "'" ; false ) ; 1 ; 1 ) ; {"09 - Concluído"; "07 - Comprado"; "01 - Recebido"; "02 - Escolhido"} ; 0 ) ) ) ; "05 - Escolhido outro" ; false ) ) ) ) ) ) ) )
