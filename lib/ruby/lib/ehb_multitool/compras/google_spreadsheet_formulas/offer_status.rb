@@ -25,7 +25,8 @@ module EhbMultitool
         end
 
         def by_offer_option(false_value)
-          offer_option_chain(%i[recebido escolhido comprado concluido cancelado], false_value)
+          offer_option_chain(%i[recebido escolhido comprado concluido ativo cancelado],
+                             false_value)
         end
 
         def items_for_escolhido_outro
