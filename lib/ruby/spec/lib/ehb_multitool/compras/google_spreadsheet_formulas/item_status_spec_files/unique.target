@@ -1,7 +1,7 @@
-=if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Concluído") > 0 ; "09 - Concluído" ;
-if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Recebido") > 0 ; "01 - Recebido" ;
-if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Comprado") > 0 ; "07 - Comprado" ;
-if( countif(query(Ofertas!$A:$H; "select B where A = '" & C2 & "'"); "Escolhido") > 0 ; "02 - Escolhido" ;
+=if( countifs(Ofertas!$A:$A; C2; Ofertas!$B:$B; "Concluído") > 0 ; "09 - Concluído" ;
+if( countifs(Ofertas!$A:$A; C2; Ofertas!$B:$B; "Recebido") > 0 ; "01 - Recebido" ;
+if( countifs(Ofertas!$A:$A; C2; Ofertas!$B:$B; "Comprado") > 0 ; "07 - Comprado" ;
+if( countifs(Ofertas!$A:$A; C2; Ofertas!$B:$B; "Escolhido") > 0 ; "02 - Escolhido" ;
 if( D2 = "Pesquisar" ; "06 - Pesquisar" ;
 if( D2 = "Pausado" ; "08 - Pausado" ;
 if( D2 = "Cancelado" ; "10 - Cancelado" ;

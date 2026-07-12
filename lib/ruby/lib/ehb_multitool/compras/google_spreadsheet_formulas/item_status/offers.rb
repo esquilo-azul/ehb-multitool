@@ -18,11 +18,24 @@ module EhbMultitool
             iff("#{offers_status_count(status)} > 0", ITEM_STATES.by_text!(status), false_value)
           end
 
+          # @param column [String]
+          # @param value [String]
+          # @return [String]
           def offers_value_count(column, value)
-            "countif(query(#{OFFERS_INTERVAL}; " \
-              "\"select #{column} " \
-              "where #{OFFERS_ITEM_COLUMN} = '\" & #{item_description} & \"'\"); " \
-              "\"#{value}\")"
+            [
+              'countifs(',
+              offers_value_count_criteria(OFFERS_ITEM_COLUMN, item_description),
+              '; ',
+              offers_value_count_criteria(column, "\"#{value}\""),
+              ')'
+            ].join
+          end
+
+          # @param column [String]
+          # @param value [String]
+          # @return [String]
+          def offers_value_count_criteria(column, value)
+            ["#{OFFERS_PAGE}!$#{column}:$#{column}", value].join('; ')
           end
 
           def offers_status_count(status)

@@ -8,7 +8,7 @@ module EhbMultitool
         OFFER_STATES = StateList.from_texts 'Recebido', 'Escolhido', 'Comprado', 'Concluído',
                                             'Escolhido outro', 'Ativo', 'Inativo', 'Cancelado',
                                             'Indefinido'
-        OFFERS_INTERVAL = 'Ofertas!$A:$H'
+        OFFERS_PAGE = 'Ofertas'
         OFFERS_ITEM_COLUMN = 'A'
         OFFERS_OPTION_COLUMN = 'B'
         OFFERS_ROW = 2
