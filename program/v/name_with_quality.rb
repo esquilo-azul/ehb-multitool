@@ -85,38 +85,31 @@ class NameVideo < EhbMultitool::Videos::File
   end
 end
 
-class Runner < Cliutils::DocoptRunner
-  enable_speaker
-  enable_simple_cache
+class Runner
   include ::Cliutils::Fs::CheckDirectoryOrFile
 
-  DOC = <<~DOCOPT
-    Mostra a qualidade de vídeos.
-
-    Usage:
-      __PROGRAM__ [options] <path>...
-      __PROGRAM__ -h | --help
-
-    Options:
-      -h --help         Show this screen.
-      -r --recursive    Recursive.
-      -c --confirm      Confirma.
-  DOCOPT
+  runner_with :help do
+    desc 'Mostra a qualidade de vídeos.'
+    bool_opt '-c', '--confirm', 'Confirma.'
+    bool_opt '-r', '--recursive', 'Recursive.'
+    pos_arg :path, repeat: true
+  end
 
   def confirm?
+    parsed.confirm?
     options.fetch('--confirm')
   end
 
   private
 
   def run
-    options['<path>'].each do |path|
+    parsed.path.each do |path|
       check_path(path)
     end
   end
 
   def recursive?
-    options['--recursive']
+    parsed.recursive?
   end
 
   def check_file(file)
