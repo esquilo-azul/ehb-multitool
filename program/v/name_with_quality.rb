@@ -3,7 +3,7 @@
 
 require ENV.fetch('RUBY_TO_REQUIRE')
 
-class NameVideo < Cliutils::Videos::File
+class NameVideo < EhbMultitool::Videos::File
   enable_speaker
   enable_simple_cache
 
@@ -69,7 +69,7 @@ class NameVideo < Cliutils::Videos::File
 
   def resolution_candidates
     video_track.extra.scan(/(\d+)x(\d+)/).map do |m|
-      ::Cliutils::Videos::Resolution.new(m[0].to_i, m[1].to_i)
+      ::EhbMultitool::Videos::Resolution.new(m[0].to_i, m[1].to_i)
     end
   end
 

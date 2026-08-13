@@ -74,7 +74,7 @@ class Runner < Cliutils::DocoptRunner
 
   def run
     fatal_error(invalid_message) if invalid_message.present?
-    inputs.each { |input| ::Cliutils::Videos::ConvertJob.new(input, profile).run }
+    inputs.each { |input| ::EhbMultitool::Videos::ConvertJob.new(input, profile).run }
   end
 
   def invalid_message_uncached
@@ -82,7 +82,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def profile_uncached
-    ::Cliutils::Videos::FfmpegProfile.by_name(profile_name)
+    ::EhbMultitool::Videos::FfmpegProfile.by_name(profile_name)
   end
 
   def profile_name
@@ -90,7 +90,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def all_profiles_names
-    ::Cliutils::Videos::FfmpegProfile.all.map(&:name)
+    ::EhbMultitool::Videos::FfmpegProfile.all.map(&:name)
   end
 
   def inputs

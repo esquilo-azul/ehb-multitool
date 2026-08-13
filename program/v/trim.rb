@@ -84,7 +84,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def video_uncached
-    ::Cliutils::Videos::File.new(input)
+    ::EhbMultitool::Videos::File.new(input)
   end
 end
 
