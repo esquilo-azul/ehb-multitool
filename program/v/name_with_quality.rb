@@ -95,10 +95,7 @@ class Runner
     pos_arg :path, repeat: true
   end
 
-  def confirm?
-    parsed.confirm?
-    options.fetch('--confirm')
-  end
+  delegate :confirm?, to: :parsed
 
   private
 
