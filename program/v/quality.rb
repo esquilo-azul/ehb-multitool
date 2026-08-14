@@ -79,46 +79,39 @@ class VideoQuality < EhbMultitool::Videos::File
   end
 end
 
-class Runner < Cliutils::DocoptRunner
-  enable_speaker
-  enable_simple_cache
+class Runner
   include ::Cliutils::Fs::CheckDirectoryOrFile
 
-  DOC = <<~DOCOPT
-    Mostra a qualidade de vídeos.
-
-    Usage:
-      __PROGRAM__ [options] <path>...
-      __PROGRAM__ -h | --help
-
-    Options:
-      -h --help                             Show this screen.
-      -r --recursive                        Recursive.
-      -f --frame-rate-min=<float-value>     Minimum frame rate to check [default: 23.0].
-      -H --height-min=<int-value>           Minimum height [default: 720].
-      -o                                    Output files.
-      -y                                    Output only ok files.
-      -n                                    Output only not ok files.
-  DOCOPT
+  runner_with :help do
+    desc 'Mostra a qualidade de vídeos.'
+    pos_arg :path, repeat: true
+    bool_opt '-r', '--recursiver', 'Recursive.'
+    arg_opt '-f', '--frame-rate-min', 'Minimum frame rate to check.',
+            default: 23.0
+    arg_opt '-H', '--height-min', 'Minimum height.', default: 720
+    bool_opt '-o',                                    'Output files.'
+    bool_opt '-y',                                    'Output only ok files.'
+    bool_opt '-n', 'Output only not ok files.'
+  end
 
   def frame_rate_minimum
-    options.fetch('--frame-rate-min').to_f
+    parsed.frame_rate_min.to_f
   end
 
   def height_minimum
-    options.fetch('--height-min').to_f
+    parsed.height_min.to_f
   end
 
   def output?
-    options.fetch('-o')
+    parsed.o?
   end
 
   def output_ok?
-    options.fetch('-y') || !options.fetch('-n')
+    parsed.y? || !parsed.n?
   end
 
   def output_not_ok?
-    options.fetch('-n') || !options.fetch('-y')
+    parsed.n? || !parsed.y?
   end
 
   private
@@ -148,7 +141,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def recursive?
-    options['--recursive']
+    parsed.recursive?
   end
 
   def check_file(file)
@@ -158,7 +151,7 @@ class Runner < Cliutils::DocoptRunner
 
   def videos_uncached
     @videos = []
-    options['<path>'].each do |path|
+    parsed.path.each do |path|
       check_path(path)
     end
     @videos
