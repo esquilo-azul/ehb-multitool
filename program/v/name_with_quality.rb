@@ -5,7 +5,7 @@ require ENV.fetch('RUBY_TO_REQUIRE')
 
 class NameVideo < EhbMultitool::Videos::File
   enable_speaker
-  enable_simple_cache
+  enable_memoized
 
   attr_reader :runner
 
@@ -44,7 +44,7 @@ class NameVideo < EhbMultitool::Videos::File
     ::File.join(::File.dirname(file), new_name)
   end
 
-  def new_name_uncached
+  memoize def new_name
     ext = ::File.extname(old_name)
     name = ::File.basename(old_name, ext)
     return old_name if / - \S+\z/.match(name)
@@ -60,7 +60,7 @@ class NameVideo < EhbMultitool::Videos::File
     resolution.quality_match
   end
 
-  def resolution_uncached
+  memoize def resolution
     resolution_candidates.each do |r|
       return r if r.valid?
     end
@@ -73,14 +73,14 @@ class NameVideo < EhbMultitool::Videos::File
     end
   end
 
-  def resolution_result_uncached
+  memoize def resolution_result
     ::Avm::Result.success_or_error(
       resolution.quality_match.to_s,
       resolution.quality.height >= runner.height_minimum
     )
   end
 
-  def video_track_uncached
+  memoize def video_track
     tracks.find { |t| t.type == 'Video' }
   end
 end
