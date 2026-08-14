@@ -3,7 +3,7 @@
 
 require ENV.fetch('RUBY_TO_REQUIRE')
 
-class NameVideo < EhbMultitool::Videos::File
+class NameVideo < EhbrsRubyUtils::Videos::File
   enable_speaker
   enable_memoized
 
@@ -25,7 +25,7 @@ class NameVideo < EhbMultitool::Videos::File
     return unless name_changed?
 
     warn("\"#{new_path}\" already exist") if ::File.exist?(new_path)
-    ::File.rename(file, new_path)
+    ::File.rename(path, new_path)
   end
 
   def show
@@ -37,11 +37,11 @@ class NameVideo < EhbMultitool::Videos::File
   end
 
   def old_name
-    ::File.basename(file)
+    ::File.basename(path)
   end
 
   def new_path
-    ::File.join(::File.dirname(file), new_name)
+    ::File.join(::File.dirname(path), new_name)
   end
 
   memoize def new_name
@@ -61,16 +61,7 @@ class NameVideo < EhbMultitool::Videos::File
   end
 
   memoize def resolution
-    resolution_candidates.each do |r|
-      return r if r.valid?
-    end
-    raise "Resolution not found in \"#{video_track.extra}\", #{resolution_candidates}"
-  end
-
-  def resolution_candidates
-    video_track.extra.scan(/(\d+)x(\d+)/).map do |m|
-      ::EhbMultitool::Videos::Resolution.new(m[0].to_i, m[1].to_i)
-    end
+    ::EhbMultitool::Videos::Resolution.new(video_track.width, video_track.height)
   end
 
   memoize def resolution_result
@@ -81,7 +72,7 @@ class NameVideo < EhbMultitool::Videos::File
   end
 
   memoize def video_track
-    tracks.find { |t| t.type == 'Video' }
+    streams.find(&:video?)
   end
 end
 
