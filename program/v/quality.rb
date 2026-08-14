@@ -44,7 +44,7 @@ class VideoQuality < EhbrsRubyUtils::Videos::File
 
   def quality_info
     [resolution_result.label, frame_rate_result.label, resolution.resolution_to_s,
-     resolution.ratio].join(' | ')
+     resolution.ratio, frame_rate, video_track.codec_name].join(' | ')
   end
 
   memoize def resolution
