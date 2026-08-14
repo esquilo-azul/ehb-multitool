@@ -5,7 +5,7 @@ require ENV.fetch('RUBY_TO_REQUIRE')
 
 class VideoQuality < EhbMultitool::Videos::File
   enable_speaker
-  enable_simple_cache
+  enable_memoized
 
   attr_reader :runner
 
@@ -38,7 +38,7 @@ class VideoQuality < EhbMultitool::Videos::File
     frame_rate_result.success? && resolution_result.success?
   end
 
-  def video_track_uncached
+  memoize def video_track
     tracks.find { |t| t.type == 'Video' }
   end
 
@@ -47,7 +47,7 @@ class VideoQuality < EhbMultitool::Videos::File
      resolution.ratio].join(' | ')
   end
 
-  def resolution_uncached
+  memoize def resolution
     resolution_candidates.each do |r|
       return r if r.valid?
     end
@@ -60,18 +60,18 @@ class VideoQuality < EhbMultitool::Videos::File
     end
   end
 
-  def frame_rate_uncached
+  memoize def frame_rate
     m = /(\d+(?:.\d+)?) fps/.match(video_track.extra)
     return m[1].to_f if m
 
     raise "Frame rate not found in \"#{video_track.extra}\""
   end
 
-  def frame_rate_result_uncached
+  memoize def frame_rate_result
     ::Avm::Result.success_or_error("#{frame_rate} FPS", frame_rate >= runner.frame_rate_minimum)
   end
 
-  def resolution_result_uncached
+  memoize def resolution_result
     ::Avm::Result.success_or_error(
       resolution.quality_match.to_s,
       resolution.quality.height >= runner.height_minimum
@@ -149,7 +149,7 @@ class Runner
     @videos << av_file if av_file.video?
   end
 
-  def videos_uncached
+  memoize def videos
     @videos = []
     parsed.path.each do |path|
       check_path(path)
