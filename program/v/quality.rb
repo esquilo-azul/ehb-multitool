@@ -3,7 +3,7 @@
 
 require ENV.fetch('RUBY_TO_REQUIRE')
 
-class VideoQuality < EhbMultitool::Videos::File
+class VideoQuality < EhbrsRubyUtils::Videos::File
   enable_speaker
   enable_memoized
 
@@ -21,11 +21,11 @@ class VideoQuality < EhbMultitool::Videos::File
   def show_video_quality
     return unless video?
 
-    infov file, quality_info
+    infov path, quality_info
   end
 
   def output_file
-    out("#{file}\n") if output_file?
+    out("#{path}\n") if output_file?
   end
 
   private
@@ -39,7 +39,7 @@ class VideoQuality < EhbMultitool::Videos::File
   end
 
   memoize def video_track
-    tracks.find { |t| t.type == 'Video' }
+    streams.find(&:video?)
   end
 
   def quality_info
@@ -48,23 +48,11 @@ class VideoQuality < EhbMultitool::Videos::File
   end
 
   memoize def resolution
-    resolution_candidates.each do |r|
-      return r if r.valid?
-    end
-    raise "Resolution not found in \"#{video_track.extra}\", #{resolution_candidates}"
-  end
-
-  def resolution_candidates
-    video_track.extra.scan(/(\d+)x(\d+)/).map do |m|
-      ::EhbMultitool::Videos::Resolution.new(m[0].to_i, m[1].to_i)
-    end
+    ::EhbMultitool::Videos::Resolution.new(video_track.width, video_track.height)
   end
 
   memoize def frame_rate
-    m = /(\d+(?:.\d+)?) fps/.match(video_track.extra)
-    return m[1].to_f if m
-
-    raise "Frame rate not found in \"#{video_track.extra}\""
+    video_track.ffprobe_data.fetch(:r_frame_rate).gsub(%r{/.*\z}, '').to_f
   end
 
   memoize def frame_rate_result
