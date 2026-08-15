@@ -49,25 +49,14 @@ class VideoFileConvert
   end
 end
 
-class Runner < Cliutils::DocoptRunner
-  enable_speaker
-  include ::EacRubyUtils::SimpleCache
+class Runner
+  runner_with :help do
+    arg_opt '-p', '--profile', 'Perfil de vídeo'
+    pos_arg :file, repeat: true
+  end
 
-  DOC = <<~DOCOPT
-    Usage:
-      __PROGRAM__ --profile=<profile> <files>...
-      __PROGRAM__ -h | --help
-
-    Options:
-      -h --help             Show this screen
-      -p --profile=<profile> Perfil de vídeo
-
-    Profiles:
-    %%PROFILES%%
-  DOCOPT
-
-  def doc
-    DOC.gsub('%%PROFILES%%', all_profiles_names.map { |n| "  * #{n}" }.join("\n"))
+  def help_extra_text
+    "Profiles:\n#{all_profiles_names.map { |n| "  * #{n}" }.join("\n")}"
   end
 
   private
@@ -86,7 +75,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def profile_name
-    options.fetch('--profile')
+    parsed.profile
   end
 
   def all_profiles_names
@@ -94,7 +83,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def inputs
-    options['<files>']
+    parsed.file
   end
 end
 
