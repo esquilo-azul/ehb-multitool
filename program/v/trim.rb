@@ -74,8 +74,9 @@ class Runner
     (video.duration - trim_start - trim_end).to_s
   end
 
+  # @return [EhbrsRubyUtils::Videos::File]
   memoize def video
-    ::EhbMultitool::Videos::File.new(input)
+    ::EhbrsRubyUtils::Videos::File.new(input)
   end
 end
 
