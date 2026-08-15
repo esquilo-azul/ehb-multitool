@@ -74,7 +74,7 @@ class Runner
     (video.duration - trim_start - trim_end).to_s
   end
 
-  def video_uncached
+  memoize def video
     ::EhbMultitool::Videos::File.new(input)
   end
 end
