@@ -3,23 +3,14 @@
 
 require ENV.fetch('RUBY_TO_REQUIRE')
 
-class Runner < Cliutils::DocoptRunner
-  enable_speaker
-  include ::EacRubyUtils::SimpleCache
-
-  DOC = <<~DOCOPT
-    Remove início e final de um vídeo.
-
-    Usage:
-      __PROGRAM__ [options] <input>
-      __PROGRAM__ -h | --help
-
-    Options:
-      -h --help             Show this screen.
-      -s --start=<N>        Remove N seconds from start of video.
-      -e --end=<N>          Remove N seconds from end of video.
-      -o --output=<FILE>    Outputs to FILE.
-  DOCOPT
+class Runner
+  runner_with :help do
+    desc 'Remove início e final de um vídeo.'
+    arg_opt '-s', '--start', 'Remove N seconds from start of video.'
+    arg_opt '-e', '--end', 'Remove N seconds from end of video.'
+    arg_opt '-o', '--output', 'Outputs to FILE.'
+    pos_arg :input
+  end
 
   private
 
@@ -42,15 +33,15 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def trim_start
-    options['--start'].to_f
+    parsed.start.to_f
   end
 
   def trim_end
-    options['--end'].to_f
+    parsed.end.to_f
   end
 
   def output
-    options['--output'] || output_by_input
+    parsed.output || output_by_input
   end
 
   def output_by_input
@@ -67,7 +58,7 @@ class Runner < Cliutils::DocoptRunner
   end
 
   def input
-    options['<input>']
+    parsed.input
   end
 
   def run_trim
