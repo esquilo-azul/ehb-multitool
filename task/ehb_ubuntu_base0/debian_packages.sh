@@ -1,4 +1,4 @@
-DEBIAN_PACKAGES=(gimp gitk)
+DEBIAN_PACKAGES=(gimp gitk kate)
 PACKAGE_ARGUMENTS=(apt "${DEBIAN_PACKAGES[@]}")
 
 function task_condition() {
