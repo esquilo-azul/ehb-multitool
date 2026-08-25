@@ -18,12 +18,14 @@ module EhbMultitool
         true
       end
 
-      def process_directory?(level)
+      # @param level [Integer]
+      # @return [Boolean]
+      def process_path?(level)
         level.zero? || recursive?
       end
 
       def inner_check_directory(dir, level)
-        return unless process_directory?(level)
+        return unless process_path?(level)
 
         check_directory(dir)
         Dir.entries(dir).sort.each do |e|
