@@ -52,7 +52,11 @@ class FileRename
   def initialize(file, options)
     @file = file
     @options = options
-    run
+  end
+
+  def run
+    puts line_out
+    rename if options.fetch(:confirm)
   end
 
   private
@@ -67,11 +71,6 @@ class FileRename
 
   def line_out
     rename? ? "#{new_basename} <= #{basename}" : basename.light_black
-  end
-
-  def run
-    puts line_out
-    rename if options.fetch(:confirm)
   end
 
   def rename?
@@ -115,7 +114,9 @@ class Runner
   end
 
   def run
+    @renames = []
     parsed.path.each { |path| check_path(path) }
+    @renames.each(&:run)
   end
 
   private
@@ -125,7 +126,7 @@ class Runner
   end
 
   def check_file(path)
-    ::FileRename.new(path, rename_options)
+    @renames << ::FileRename.new(path, rename_options)
   end
 
   # @param pattern [String, nil]
