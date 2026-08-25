@@ -7,6 +7,8 @@ module EhbMultitool
     # * recursive?
     module CheckDirectoryOrFile
       def check_path(path, level = 0)
+        return unless process_path?(level)
+
         if File.file?(path)
           check_file(path)
         elsif File.directory?(path)
@@ -25,8 +27,6 @@ module EhbMultitool
       end
 
       def inner_check_directory(dir, level)
-        return unless process_path?(level)
-
         check_directory(dir)
         Dir.entries(dir).sort.each do |e|
           next if e.start_with?('.')
