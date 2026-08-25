@@ -7,7 +7,7 @@ class TheRunner
   VALID_EXTENSIONS = %w[.flac .mp3 .m4a .mp4 .opus].freeze
 
   enable_speaker
-  include ::Cliutils::Fs::CheckDirectoryOrFile
+  include ::EhbMultitool::Fs::CheckDirectoryOrFile
 
   runner_with :help, :filesystem_traverser do
     desc 'Converte para MP3.'

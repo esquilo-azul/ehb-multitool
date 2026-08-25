@@ -97,7 +97,7 @@ class PadDirectory
 end
 
 class Runner < Cliutils::DocoptRunner
-  include ::Cliutils::Fs::CheckDirectoryOrFile
+  include ::EhbMultitool::Fs::CheckDirectoryOrFile
 
   enable_speaker
 

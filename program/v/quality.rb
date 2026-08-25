@@ -68,7 +68,7 @@ class VideoQuality < EhbrsRubyUtils::Videos::File
 end
 
 class Runner
-  include ::Cliutils::Fs::CheckDirectoryOrFile
+  include ::EhbMultitool::Fs::CheckDirectoryOrFile
 
   runner_with :help do
     desc 'Mostra a qualidade de vídeos.'
