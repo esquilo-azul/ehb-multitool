@@ -120,6 +120,10 @@ class Runner
 
   private
 
+  def check_directory(path)
+    check_file(path)
+  end
+
   def check_file(path)
     ::FileRename.new(path, rename_options)
   end
