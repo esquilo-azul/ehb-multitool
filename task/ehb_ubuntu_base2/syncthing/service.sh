@@ -1,7 +1,7 @@
 PACKAGE_ARGUMENTS=(systemctl "syncthing@${USER}.service")
 
 function task_dependencies() {
-  outout_nl ehb_ubuntu_base1/syncthing/package
+  outout_nl ehb_ubuntu_base2/syncthing/package
 }
 
 function task_condition() {
