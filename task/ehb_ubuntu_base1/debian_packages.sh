@@ -1,3 +1,4 @@
+# qml-module-qtquick-shapes: dependência de "kde-spectacle"
 DEBIAN_PACKAGES=( \
   clementine \
   fdupes \
@@ -6,7 +7,7 @@ DEBIAN_PACKAGES=( \
   kde-spectacle \
   mcomix \
   plocate \
-  qml-module-qtquick-shapes \ # Dependência de "kde-spectacle"
+  qml-module-qtquick-shapes \
   smplayer \
 )
 PACKAGE_ARGUMENTS=(apt "${DEBIAN_PACKAGES[@]}")
