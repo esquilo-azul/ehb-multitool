@@ -2,7 +2,7 @@ DEVICES=(blueman gvfs-backends)
 OFFICE=(p7zip-full atril baobab file-roller kolourpaint libreoffice mate-calc thunar-archive-plugin unrar)
 SYSTEM=(breeze-icon-theme gnome-system-monitor gparted heif-gdk-pixbuf menulibre openssh-server
   xfce4-netload-plugin xfce4-systemload-plugin xubuntu-core)
-TERMINAL=(bash-completion command-not-found nano)
+TERMINAL=(bash-completion command-not-found nano tree)
 
 DEBIAN_PACKAGES=("${DEVELOPMENT[@]}" "${DEVICES[@]}" "${IMAGES[@]}" "${MULTIMEDIA[@]}" \
   "${OFFICE[@]}" "${SYSTEM[@]}" "${TERMINAL[@]}")
