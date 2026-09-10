@@ -15,6 +15,7 @@ class Runner
   private
 
   def run
+    start_banner
     if trim_start > 0.0 || trim_end > 0.0
       run_trim
     else
