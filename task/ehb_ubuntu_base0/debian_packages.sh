@@ -1,6 +1,11 @@
 DEBIAN_PACKAGES=(
   gimp \
   gitk \
+  gpick \
+  inkscape \
+  parcellite \
+  pwgen \
+  remmina \
   xsel \
 )
 PACKAGE_ARGUMENTS=(apt "${DEBIAN_PACKAGES[@]}")
