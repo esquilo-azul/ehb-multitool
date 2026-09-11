@@ -24,7 +24,7 @@ class Runner
 
   def start_banner
     infov('Input', input)
-    infov('Input duration', video.duration_s)
+    infov('Input duration', video.duration)
     infov('Output', output)
     infov('Trim start', trim_start)
     infov('End start', trim_end)
