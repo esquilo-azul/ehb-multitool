@@ -7,17 +7,24 @@ INTERVAL="${2:-0.6}"
 DURATION="${3:-10}"
 
 if [ -z "$WIN" ]; then
-  echo "Uso: $0 '<título da janela>' [intervalo_s] [duração_s]" >&2
+  echo "Uso: $0 '<título da janela>|<id da janela>' [intervalo_s] [duração_s]" >&2
   exit 1
 fi
 
+WMCTRL_ID_OPT=()
+case "$WIN" in
+  0x*|[0-9]*)
+    WMCTRL_ID_OPT=(-i)
+    ;;
+esac
+
 END=$((SECONDS + DURATION))
 while [ "$SECONDS" -lt "$END" ]; do
-    wmctrl -r "$WIN" -b add,demands_attention
+    wmctrl "${WMCTRL_ID_OPT[@]}" -r "$WIN" -b add,demands_attention
     sleep "$INTERVAL"
-    wmctrl -r "$WIN" -b remove,demands_attention
+    wmctrl "${WMCTRL_ID_OPT[@]}" -r "$WIN" -b remove,demands_attention
     sleep "$INTERVAL"
 done
 
 # garante que termina "aceso" caso queira manter o destaque
-wmctrl -r "$WIN" -b add,demands_attention
+wmctrl "${WMCTRL_ID_OPT[@]}" -r "$WIN" -b add,demands_attention
