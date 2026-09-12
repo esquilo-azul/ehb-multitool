@@ -22,13 +22,7 @@ class FsStatus
     end
   end
 
-  attr_reader :parent, :name, :status
-
-  def initialize(parent, name, status)
-    @parent = parent
-    @name = name
-    @status = status
-  end
+  common_constructor :parent, :name, :status
 
   def output_children(level)
     children.each do |c|
