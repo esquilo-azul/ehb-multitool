@@ -22,6 +22,9 @@ class FsStatus
     end
   end
 
+  STATUS_PENDING = ['syncing'].freeze
+  STATUS_OK = ['unwatched', 'up to date'].freeze
+
   common_constructor :parent, :name, :status
 
   def output_children(level)
@@ -31,7 +34,7 @@ class FsStatus
   end
 
   def output(level)
-    return unless status == 'syncing'
+    return unless status_pending?
 
     puts(('  ' * level) << name)
     output_children(level + 1)
@@ -63,6 +66,14 @@ class FsStatus
     Dir.chdir path do
       ::EacRubyUtils::Envs.local.command('dropbox', 'filestatus').execute!
     end
+  end
+
+  # @return [Boolean]
+  def status_pending?
+    return true if STATUS_PENDING.include?(status)
+    return false if STATUS_OK.include?(status)
+
+    raise "Unknown status: \"#{status}\" for \"#{path}\""
   end
 end
 
