@@ -4,7 +4,7 @@
 require ENV.fetch('RUBY_TO_REQUIRE')
 
 class FsStatus
-  include ::EacRubyUtils::SimpleCache
+  enable_memoized
 
   class << self
     def build_from_line(parent, line)
@@ -48,7 +48,8 @@ class FsStatus
     r
   end
 
-  def path_uncached
+  # @return [String]
+  memoize def path
     s = name
     s = "#{parent.path}/#{s}" if parent
     s
