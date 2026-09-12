@@ -77,8 +77,8 @@ class Runner
     arg_opt '-f', '--frame-rate-min', 'Minimum frame rate to check.',
             default: 23.0
     arg_opt '-H', '--height-min', 'Minimum height.', default: 720
-    bool_opt '-o',                                    'Output files.'
-    bool_opt '-y',                                    'Output only ok files.'
+    bool_opt '-o', 'Output files.'
+    bool_opt '-y', 'Output only ok files.'
     bool_opt '-n', 'Output only not ok files.'
   end
 

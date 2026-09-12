@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir.glob('{lib}/**/*', File::FNM_DOTMATCH)
               .reject { |f| ['.', '..'].include?(File.basename(f)) }
-  s.required_ruby_version = '>= 3.2'
+  s.required_ruby_version = '>= 3.2' # rubocop:disable Gemspec/RequiredRubyVersion
 
   s.add_dependency 'eac_ruby_utils', '~> 0.131'
 
