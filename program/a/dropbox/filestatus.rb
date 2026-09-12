@@ -72,13 +72,23 @@ class FsStatus
 end
 
 class Runner
-  def initialize(root)
-    FsStatus.new(nil, root, '').output_children(0)
+  runner_with :help do
+    pos_arg :path, optional: true, repeat: true
+  end
+
+  def run
+    paths.each do |path|
+      process_path(path)
+    end
+  end
+
+  def paths
+    parsed.path.any? ? parsed.path : ['.']
+  end
+
+  def process_path(path)
+    FsStatus.new(nil, path, '').output_children(0)
   end
 end
 
-if ARGV.empty?
-  Runner.new('.')
-else
-  ARGV.each { |a| Runner.new(a) }
-end
+Runner.run
