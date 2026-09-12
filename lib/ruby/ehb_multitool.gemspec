@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
               .reject { |f| ['.', '..'].include?(File.basename(f)) }
   s.required_ruby_version = '>= 3.2' # rubocop:disable Gemspec/RequiredRubyVersion
 
-  s.add_dependency 'eac_ruby_utils', '~> 0.131'
+  s.add_dependency 'eac_ruby_utils', '~> 0.134'
 
-  s.add_development_dependency 'eac_ruby_gem_support', '~> 0.13'
+  s.add_development_dependency 'eac_ruby_gem_support', '~> 0.15'
 end
