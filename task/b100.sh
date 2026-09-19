@@ -3,7 +3,8 @@ function task_dependencies() {
     ehb_ubuntu_base0 \
     b100/debian_packages \
     b100/flips \
-    b100/ruby_gosu_dependencies
+    b100/ruby_gosu_dependencies \
+    b100/storage_mount
 }
 
 function task_condition() {
