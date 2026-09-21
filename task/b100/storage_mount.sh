@@ -13,6 +13,6 @@ function task_condition() {
 }
 
 function task_fix() {
-  unit_content | USE_SUDO=true template_apply - "${TARGET_PATH}"
-  SUDO=true package_install_multiple systemctl "${TARGET_NAME}"
+  unit_content | SUDO=t template_apply - "${TARGET_PATH}"
+  SUDO=t package_assert systemctl "${TARGET_NAME}"
 }
