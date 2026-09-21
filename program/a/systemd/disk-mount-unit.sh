@@ -12,7 +12,6 @@ DISK_UUID="$2"
 function build_content() {
   outout "[Unit]
 Description=Mount ${DISK_UUID} in ${MOUNT_PATH}
-After=local-fs.target
 
 [Mount]
 What=/dev/disk/by-uuid/${DISK_UUID}
