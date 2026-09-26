@@ -5,7 +5,10 @@ source "${BASH_TO_REQUIRE}"
 function ffmpeg_convert() {
   local SOURCE_FILE="$1"
   local TARGET_FILE="$2"
-  ffmpeg -i "${SOURCE_FILE}" -c copy \
+
+  ffmpeg -i "${SOURCE_FILE}" \
+    -map 0
+    -c copy \
     -vcodec libx264 -crf 17 -filter:v format\=yuv420p \
     -acodec aac \
     -scodec copy \
