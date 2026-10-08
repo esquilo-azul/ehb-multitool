@@ -2,6 +2,7 @@ DEBIAN_PACKAGES=(
   gimp \
   gitk \
   gpick \
+  img2pdf \
   inkscape \
   parcellite \
   pwgen \
