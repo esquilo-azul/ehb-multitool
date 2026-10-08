@@ -6,7 +6,8 @@ function task_dependencies() {
     ehb_ubuntu_base0/git_with_keyring \
     ehb_ubuntu_base0/mkusb \
     ehb_ubuntu_base0/printing \
-    ehb_ubuntu_base0/snap_packages
+    ehb_ubuntu_base0/snap_packages \
+    ehb_ubuntu_base0/vscode
 }
 
 function task_condition() {
