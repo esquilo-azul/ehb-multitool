@@ -6,9 +6,9 @@ function task_dependencies() {
 }
 
 function task_condition() {
-  package_installed apt "${PACKAGE_ARGUMENTS[@]}"
+  package_installed "${PACKAGE_ARGUMENTS[@]}"
 }
 
 function task_fix() {
-  package_assert apt "${PACKAGE_ARGUMENTS[@]}"
+  package_assert "${PACKAGE_ARGUMENTS[@]}"
 }
