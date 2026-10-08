@@ -1,7 +1,7 @@
 function task_dependencies() {
   outout_nl \
+    eac_ce \
     ehb_ubuntu_base1 \
-    eac_ce/debian_packages \
     ehb_ubuntu_base0/debian_packages \
     ehb_ubuntu_base0/git_with_keyring \
     ehb_ubuntu_base0/mkusb \
