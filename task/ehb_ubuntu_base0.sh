@@ -7,7 +7,8 @@ function task_dependencies() {
     ehb_ubuntu_base0/mkusb \
     ehb_ubuntu_base0/printing \
     ehb_ubuntu_base0/snap_packages \
-    ehb_ubuntu_base0/vscode
+    ehb_ubuntu_base0/vscode \
+    ehb_ubuntu_base0/vscode_taskbar_launcher
 }
 
 function task_condition() {
