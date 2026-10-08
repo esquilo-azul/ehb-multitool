@@ -44,7 +44,7 @@ class TheRunner
 
   # @return [String]
   def localization
-    ::CGI.unescape(url.path.split('/').reject(&:blank?).fetch(1))
+    ::CGI.unescape(url.path.split('/').compact_blank.fetch(1))
   end
 
   # @return [String]
